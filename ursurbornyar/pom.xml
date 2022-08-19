@@ -26,20 +26,6 @@
 	</repositories>
 
 	<dependencies>
-	
-		<!-- 셀레니움 크롤러 -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
-		</dependency>
-		
-		<!-- 코모란 형태소 분석기 -->
-		<dependency>
-			<groupId>com.github.shin285</groupId>
-			<artifactId>KOMORAN</artifactId>
-			<version>3.3.4</version>
-		</dependency>
 
 		<!-- Spring -->
 		<dependency>
