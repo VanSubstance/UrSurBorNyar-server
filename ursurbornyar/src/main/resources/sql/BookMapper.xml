@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.my.ursurbornyar.mapper.BookMapper">
+<mapper namespace="com.my.ursurbornyar.mapper.BasicMapper">
 
-	<insert id = "insertBook" parameterType="com.my.ursurbornyar.vo.Basic">
+
+	<select id = "check" resultType="Integer">
+		SELECT 
+			COUNT(*)
+		FROM
+			PATH_TB
+	</select>
+	
+	<insert id = "insertBook" parameterType="com.my.ursurbornyar.vo.Path">
 		INSERT INTO BOOK_TB (
 			ID,
 			TITLE,
@@ -22,7 +30,7 @@
 		)
 	</insert>
 	
-	<select id= "selectBookId" resultType="com.my.ursurbornyar.vo.Basic">
+	<select id= "selectBookId" resultType="com.my.ursurbornyar.vo.Path">
         SELECT
             DATE_FORMAT(CURRENT_DATE(), '%y%m%d') AS CODE_DATE,
             COUNT(*) AS CNT
@@ -32,7 +40,7 @@
             ID LIKE CONCAT(DATE_FORMAT(CURRENT_DATE(), '%y%m%d'), '%')
 	</select>
 	
-	<select id = "selectBook" resultType="com.my.ursurbornyar.vo.Basic">
+	<select id = "selectBook" resultType="com.my.ursurbornyar.vo.Path">
 		SELECT 
 			*
 		FROM

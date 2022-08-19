@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.my.ursurbornyar.vo.Basic;
+import com.my.ursurbornyar.vo.Path;
 
 public interface BasicMapper {
 
-	public void insertUser(@Param("user") Basic user);
-	public List<Basic> selectBook(@Param("title") String title);
+	public int check();
 	
-	public List<Basic> searchByName(@Param("name") String name);
+	public void insertUser(@Param("user") Path user);
+	public List<Path> selectBook(@Param("title") String title);
 	
-	public List<Basic> searchById(@Param("id") String id);
+	public List<Path> searchByName(@Param("name") String name);
+	
+	public List<Path> searchById(@Param("id") String id);
 }
