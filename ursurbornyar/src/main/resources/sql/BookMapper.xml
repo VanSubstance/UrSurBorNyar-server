@@ -3,7 +3,7 @@
 
 <mapper namespace="com.my.ursurbornyar.mapper.BookMapper">
 
-	<insert id = "insertBook" parameterType="com.my.ursurbornyar.vo.vanilla.Book">
+	<insert id = "insertBook" parameterType="com.my.ursurbornyar.vo.Basic">
 		INSERT INTO BOOK_TB (
 			ID,
 			TITLE,
@@ -22,7 +22,7 @@
 		)
 	</insert>
 	
-	<select id= "selectBookId" resultType="com.my.ursurbornyar.vo.generator.Code">
+	<select id= "selectBookId" resultType="com.my.ursurbornyar.vo.Basic">
         SELECT
             DATE_FORMAT(CURRENT_DATE(), '%y%m%d') AS CODE_DATE,
             COUNT(*) AS CNT
@@ -32,7 +32,7 @@
             ID LIKE CONCAT(DATE_FORMAT(CURRENT_DATE(), '%y%m%d'), '%')
 	</select>
 	
-	<select id = "selectBook" resultType="com.my.ursurbornyar.vo.vanilla.Book">
+	<select id = "selectBook" resultType="com.my.ursurbornyar.vo.Basic">
 		SELECT 
 			*
 		FROM
