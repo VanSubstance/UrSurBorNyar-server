@@ -26,10 +26,10 @@ public class BasicController {
 
 	@RequestMapping(value = "/twocoors", method = RequestMethod.POST)
 	public Response getTwoCoors(@RequestBody HashMap<String, Object> req) {
-		System.out.println(req);
+		System.out.println("바디:: " + req);
 		if (req != null) {
 			try {
-				ArrayList<Place> placeList = (ArrayList<Place>) ((HashMap<String, Object>) req.get("body")).get("placeList");
+				ArrayList<Place> placeList = (ArrayList<Place>) req.get("placeList");
 				Response res = new Response();
 				System.out.println(placeList);
 				res.setData(placeList);
