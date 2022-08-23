@@ -24,10 +24,9 @@ public class TransportController {
 	@RequestMapping(value = "/bus", method = RequestMethod.PATCH)
 	public ResponseEntity<?> onlyBus(@RequestBody HashMap<String, Object> body) {
 		System.out.println(body);
-		
+
 		Place startPlace = new Place((HashMap<String, Object>) body.get("startPlace"));
 		Place endPlace = new Place((HashMap<String, Object>) body.get("endPlace"));
-		
 		Coordinate startCoor = startPlace.getCoordinate();
 		Coordinate endCoor = endPlace.getCoordinate();
 
@@ -37,8 +36,11 @@ public class TransportController {
 	@RequestMapping(value = "/sub", method = RequestMethod.PATCH)
 	public ResponseEntity<?> onlySubway(@RequestBody HashMap<String, Object> body) {
 		System.out.println(body);
-		Coordinate startCoor = ((Place) body.get("startPlace")).getCoordinate();
-		Coordinate endCoor = ((Place) body.get("endPlace")).getCoordinate();
+
+		Place startPlace = new Place((HashMap<String, Object>) body.get("startPlace"));
+		Place endPlace = new Place((HashMap<String, Object>) body.get("endPlace"));
+		Coordinate startCoor = startPlace.getCoordinate();
+		Coordinate endCoor = endPlace.getCoordinate();
 
 		return tranService.getPathInfoBySubwayList(new TransportRequest(startCoor, endCoor));
 	}
@@ -46,8 +48,11 @@ public class TransportController {
 	@RequestMapping(value = "/busNsub", method = RequestMethod.PATCH)
 	public ResponseEntity<?> busAndSubway(@RequestBody HashMap<String, Object> body) {
 		System.out.println(body);
-		Coordinate startCoor = ((Place) body.get("startPlace")).getCoordinate();
-		Coordinate endCoor = ((Place) body.get("endPlace")).getCoordinate();
+
+		Place startPlace = new Place((HashMap<String, Object>) body.get("startPlace"));
+		Place endPlace = new Place((HashMap<String, Object>) body.get("endPlace"));
+		Coordinate startCoor = startPlace.getCoordinate();
+		Coordinate endCoor = endPlace.getCoordinate();
 
 		return tranService.getPathInfoByBusNSubList(new TransportRequest(startCoor, endCoor));
 	}
