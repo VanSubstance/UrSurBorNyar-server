@@ -3,8 +3,37 @@
 
 <mapper namespace="com.my.ursurbornyar.mapper.BasicMapper">
 
-
-	<select id = "check" resultType="Integer">
+	<insert id = "insertPlace" parameterType="com.my.ursurbornyar.vo.Place">
+		INSERT INTO PLACE_TB (
+			ID,
+			NAME,
+			WGS_X,
+			WGS_Y,
+			GRS_X,
+			GRS_Y
+		)
+		VALUES (
+			#{place.id},
+			#{place.name},
+			#{place.coor.x},
+			#{place.coor.y},
+			null,
+			null
+		)
+	</insert>
+	
+	<select id = "checkDuplicatedPlace" resultType = "Boolean">
+	
+	</select>
+	
+	<select id = "countPlace" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PLACE_TB
+	</select>
+	
+	<select id = "check" resultType = "Integer">
 		SELECT 
 			COUNT(*)
 		FROM
