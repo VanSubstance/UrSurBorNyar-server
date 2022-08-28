@@ -1,9 +1,16 @@
 package com.my.ursurbornyar.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,29 +19,47 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.ursurbornyar.service.BasicService;
+import com.my.ursurbornyar.service.UtilService;
 import com.my.ursurbornyar.vo.Path;
 import com.my.ursurbornyar.vo.Place;
+import com.my.ursurbornyar.vo.PlaceList;
 import com.my.ursurbornyar.vo.Response;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 @RestController
 @RequestMapping(value = "/basic")
 public class BasicController {
 
 	@Autowired
 	private BasicService basicService;
+	@Autowired
+	private UtilService utilService;
 
 	@RequestMapping(value = "/twocoors", method = RequestMethod.POST)
-	public Response getTwoCoors(@RequestBody HashMap<String, Object> req) {
+	public Response getTwoCoors(@RequestBody HashMap<String, ArrayList<Place>> req) {
 		System.out.println("바디:: " + req);
 		if (req != null) {
-			try {
-				ArrayList<Place> placeList = (ArrayList<Place>) req.get("placeList");
+			try {				
+				ArrayList<Place> placeList = req.get("placeList");
+				System.out.println(placeList.get(0).getCoordinate());
+				
 				Response res = new Response();
-				System.out.println(placeList);
+								
+				int insertRes = basicService.insertPlace(placeList);
+				
+				System.out.println("Inserted place count : " +insertRes);
 				res.setData(placeList);
+				res.setMessage("Insert success.");
+				
 				return res;
 			} catch (ClassCastException e) {
+				System.out.println(e);
 				Response res = new Response(false);
 				res.setMessage("Invalid parameters.");
 				return res;

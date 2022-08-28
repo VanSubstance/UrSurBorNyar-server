@@ -16,6 +16,14 @@ public class Place {
 		this.name = (String) place.get("name");
 		this.coor = new Coordinate((HashMap<String, Double>) place.get("coor"));
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
