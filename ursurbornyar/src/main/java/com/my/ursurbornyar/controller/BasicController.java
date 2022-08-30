@@ -25,7 +25,6 @@ import com.my.ursurbornyar.service.BasicService;
 import com.my.ursurbornyar.service.UtilService;
 import com.my.ursurbornyar.vo.Path;
 import com.my.ursurbornyar.vo.Place;
-import com.my.ursurbornyar.vo.PlaceList;
 import com.my.ursurbornyar.vo.Response;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -53,9 +52,8 @@ public class BasicController {
 								
 				int insertRes = basicService.insertPlace(placeList);
 				
-				System.out.println("Inserted place count : " +insertRes);
 				res.setData(placeList);
-				res.setMessage("Insert success.");
+				res.setMessage("Inserted place count : " + insertRes);
 				
 				return res;
 			} catch (ClassCastException e) {

@@ -8,5 +8,5 @@ import com.my.ursurbornyar.vo.Path;
 public interface UtilService {
 	
 	public String convertHex(int num);
-	public Boolean checkDuplicatedPlace(Place place);
+	public int checkDuplicatedPlace(Place place);
 }

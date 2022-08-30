@@ -22,8 +22,15 @@
 		)
 	</insert>
 	
-	<select id = "checkDuplicatedPlace" resultType = "Boolean">
-	
+	<select id = "checkDuplicatedPlace" parameterType="com.my.ursurbornyar.vo.Place" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PLACE_TB
+		WHERE
+			 WGS_X = #{place.coor.x} AND WGS_Y = #{place.coor.y}
+		OR
+			 NAME = #{place.name}
 	</select>
 	
 	<select id = "countPlace" resultType = "Integer">

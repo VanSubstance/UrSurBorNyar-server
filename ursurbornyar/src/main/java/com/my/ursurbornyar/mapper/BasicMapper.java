@@ -8,9 +8,9 @@ import com.my.ursurbornyar.vo.Path;
 
 public interface BasicMapper {
 
-	public int insertPlace(@Param("place")Place place);
+	public int insertPlace(@Param("place") Place place);
 	public int countPlace();
-	
+	public int checkDuplicatedPlace(@Param("place") Place place);
 	public int check();
 	
 	public void insertUser(@Param("user") Path user);

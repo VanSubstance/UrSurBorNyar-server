@@ -37,8 +37,12 @@ public class BasicServiceImpl implements BasicService {
 		System.out.println(placeList);
 		
 		for (Place place : placeList) {
-			res += mapper.insertPlace(place);
-		
+			if (utilService.checkDuplicatedPlace(place) > 0) {
+				System.out.println("Already stored place.");
+			}
+			else {
+				res += mapper.insertPlace(place);
+			}
 		}
 		System.out.println("end insert placeList");
 		

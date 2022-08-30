@@ -37,6 +37,7 @@ public class TransportServiceImpl implements TransportService {
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Content-type", "application/json");
 			HashMap<String, Object> response = new ObjectMapper().readValue(conn.getInputStream(), HashMap.class);
+			System.out.println(response);
 			HttpStatus status = HttpStatus.GONE;
 			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 				status = HttpStatus.OK;
@@ -64,7 +65,9 @@ public class TransportServiceImpl implements TransportService {
 	@Override
 	public ResponseEntity<?> getPathInfoByBusList(TransportRequest transportRequest) {
 		// TODO Auto-generated method stub
+		System.out.println("start getPath");
 		ResponseEntity<?> response = getUri(BASE_URL + "getPathInfoByBus", transportRequest);
+		System.out.println("end getPath");
 		return response;
 	}
 

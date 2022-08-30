@@ -22,11 +22,11 @@ public class TransportController {
 	private TransportService tranService;
 
 	@RequestMapping(value = "/bus", method = RequestMethod.PATCH)
-	public ResponseEntity<?> onlyBus(@RequestBody HashMap<String, Object> body) {
+	public ResponseEntity<?> onlyBus(@RequestBody HashMap<String, Place> body) {
 		System.out.println(body);
 
-		Place startPlace = new Place((HashMap<String, Object>) body.get("startPlace"));
-		Place endPlace = new Place((HashMap<String, Object>) body.get("endPlace"));
+		Place startPlace = body.get("startPlace");
+		Place endPlace = body.get("endPlace");
 		Coordinate startCoor = startPlace.getCoordinate();
 		Coordinate endCoor = endPlace.getCoordinate();
 
