@@ -2,11 +2,12 @@ package com.my.ursurbornyar.vo;
 
 public class Path {
 	private String id;
+	private String name;
 	private String start_point_id;
 	private String end_point_id;
 	
 	public String toString() {
-		return "{\n" + "\tid : " + id + "\n" + "\tstart point id : " + start_point_id + "\tend point id" + end_point_id +"\n" + "}";
+		return "{\n" + "\tid : " + id + "\n" + "\tname : " + name + "\n" + "\tstart point id : " + start_point_id + "\tend point id" + end_point_id +"\n" + "}";
 	}
 
 	public String getId() {
@@ -15,6 +16,14 @@ public class Path {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getStartId() {

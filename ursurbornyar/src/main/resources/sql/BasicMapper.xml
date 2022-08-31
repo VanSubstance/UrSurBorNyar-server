@@ -22,6 +22,19 @@
 		)
 	</insert>
 	
+	<insert id = "insertPointSet" parameterType="com.my.ursurbornyar.vo.Path">
+		INSERT INTO POINT_SET_TB (
+			ID,
+			START_POINT_ID,
+			END_POINT_ID
+		)
+		VALUES (
+			#{path.id},
+			#{path.start_point_id},
+			#{path.end_point_id}
+		)
+	</insert>
+	
 	<select id = "checkDuplicatedPlace" parameterType="com.my.ursurbornyar.vo.Place" resultType = "Integer">
 		SELECT
 			COUNT(*)
@@ -40,52 +53,17 @@
 			PLACE_TB
 	</select>
 	
+	<select id = "countPointSet" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			POINT_SET_TB
+	</select>
+	
 	<select id = "check" resultType = "Integer">
 		SELECT 
 			COUNT(*)
 		FROM
 			PATH_TB
 	</select>
-	
-	<insert id = "insertBook" parameterType="com.my.ursurbornyar.vo.Path">
-		INSERT INTO BOOK_TB (
-			ID,
-			TITLE,
-			CONTENT,
-			WRITER_ID,
-			GENRES,
-			IMAGE_URL
-		)
-		VALUES (
-			#{item.id},
-			#{item.title},
-			#{item.content},
-			#{item.writerId},
-			#{item.genres},
-			#{item.imageUrl}
-		)
-	</insert>
-	
-	<select id= "selectBookId" resultType="com.my.ursurbornyar.vo.Path">
-        SELECT
-            DATE_FORMAT(CURRENT_DATE(), '%y%m%d') AS CODE_DATE,
-            COUNT(*) AS CNT
-        FROM
-            BOOK_TB
-        WHERE
-            ID LIKE CONCAT(DATE_FORMAT(CURRENT_DATE(), '%y%m%d'), '%')
-	</select>
-	
-	<select id = "selectBook" resultType="com.my.ursurbornyar.vo.Path">
-		SELECT 
-			*
-		FROM
-			BOOK_TB 
-		<if test='title != null'>
-		WHERE
-			TITLE = #{title}
-		</if>
-		ORDER BY ID ASC
-	</select>
-	
 </mapper>

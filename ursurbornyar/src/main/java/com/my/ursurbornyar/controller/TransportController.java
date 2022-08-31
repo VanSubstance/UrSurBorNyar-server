@@ -30,7 +30,10 @@ public class TransportController {
 		Coordinate startCoor = startPlace.getCoordinate();
 		Coordinate endCoor = endPlace.getCoordinate();
 
-		return tranService.getPathInfoByBusList(new TransportRequest(startCoor, endCoor));
+		ResponseEntity<?> responseEntity = tranService.getPathInfoByBusList(new TransportRequest(startCoor, endCoor));
+		System.out.println("/bus");
+		System.out.println(responseEntity.getBody());
+		return responseEntity;
 	}
 
 	@RequestMapping(value = "/sub", method = RequestMethod.PATCH)

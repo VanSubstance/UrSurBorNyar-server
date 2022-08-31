@@ -48,10 +48,25 @@ public class BasicServiceImpl implements BasicService {
 		
 		return res;
 	}
+	
+	@Override
+	public int insertPointSet(Path path) {
 		
+		int pNum = countPointSet();
+		String pNum16 = utilService.convertHex(pNum);
+		int res = mapper.insertPointSet(path);
+		
+		return 1;
+	}
+	
 	@Override
 	public int countPlace() {
 		return mapper.countPlace();
+	}
+	
+	@Override
+	public int countPointSet() {
+		return mapper.countPointSet();
 	}
 	
 	@Override
@@ -59,28 +74,4 @@ public class BasicServiceImpl implements BasicService {
 		// TODO Need to Re-check
 		return mapper.check();
 	}
-	@Override
-	public void insertUser(Path item) {
-		// TODO Auto-generated method stub
-		mapper.insertUser(item);
-	}
-
-	@Override
-	public List<Path> selectBook(String title) {
-		// TODO Auto-generated method stub
-		return mapper.selectBook(title);
-	}
-	
-	@Override
-	public List<Path> searchByName(String name){
-		
-		return mapper.searchByName(name);	
-	}
-	
-	@Override
-	public List<Path> searchById(String id){
-		
-		return mapper.searchById(id);	
-	}
-	
 }

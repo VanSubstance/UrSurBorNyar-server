@@ -9,14 +9,9 @@ import com.my.ursurbornyar.vo.Path;
 public interface BasicService {
 	
 	public int insertPlace(ArrayList<Place> placeList);
+	public int insertPointSet(Path path);
 	public int countPlace();
+	public int countPointSet();
 	
 	public int check();
-	
-	public void insertUser(Path item);
-	public List<Path> selectBook(String title);
-	
-	public List<Path> searchByName(String name);
-	
-	public List<Path> searchById(String id);
 }
