@@ -14,7 +14,7 @@ public class Place {
 	public Place(HashMap<String, Object> place) {
 		this.id = (String) place.get("id");
 		this.name = (String) place.get("name");
-		this.coor = new Coordinate((HashMap<String, Double>) place.get("coor"));
+		this.coor = new Coordinate((HashMap<String, Object>) place.get("coor"));
 	}
 	
 	public String getId() {

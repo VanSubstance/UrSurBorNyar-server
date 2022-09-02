@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import com.my.ursurbornyar.vo.Place;
 import com.my.ursurbornyar.vo.Path;
 
-public interface BasicMapper {
+public interface TrackPathMapper {
+
+	public int countTrackPath();
 	
-	public int check();
 }

@@ -15,9 +15,9 @@ public class Coordinate {
 		this.y = y;
 	}
 
-	public Coordinate(HashMap<String, Double> coor) {
-		this.x = coor.get("x");
-		this.y = coor.get("y");
+	public Coordinate(HashMap<String, Object> coor) {
+		this.x = (double) coor.get("x");
+		this.y = (double) coor.get("y");
 	}
 
 	public double getX() {

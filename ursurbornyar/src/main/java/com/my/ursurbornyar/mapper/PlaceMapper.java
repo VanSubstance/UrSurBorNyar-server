@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import com.my.ursurbornyar.vo.Place;
 import com.my.ursurbornyar.vo.Path;
 
-public interface BasicMapper {
-	
-	public int check();
+public interface PlaceMapper {
+
+	public int insertPlace(@Param("place") Place place);
+	public int countPlace();	
+	public int checkDuplicatedPlace(@Param("place") Place place);
+
 }

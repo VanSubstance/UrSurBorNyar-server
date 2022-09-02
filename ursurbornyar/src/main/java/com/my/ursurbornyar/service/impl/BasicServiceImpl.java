@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.ursurbornyar.mapper.BasicMapper;
+import com.my.ursurbornyar.mapper.PlaceMapper;
+import com.my.ursurbornyar.mapper.PointSetMapper;
 import com.my.ursurbornyar.service.BasicService;
 import com.my.ursurbornyar.service.UtilService;
 
@@ -16,8 +18,11 @@ import com.my.ursurbornyar.vo.Path;
 @Service
 public class BasicServiceImpl implements BasicService {
 	@Autowired
-	private BasicMapper mapper;
-	
+	private BasicMapper basicMapper;
+	@Autowired
+	private PlaceMapper placeMapper;
+	@Autowired
+	private PointSetMapper pointSetMapper;
 	@Autowired
 	private UtilService utilService;
 
@@ -41,7 +46,7 @@ public class BasicServiceImpl implements BasicService {
 				System.out.println("Already stored place.");
 			}
 			else {
-				res += mapper.insertPlace(place);
+				res += placeMapper.insertPlace(place);
 			}
 		}
 		System.out.println("end insert placeList");
@@ -54,24 +59,24 @@ public class BasicServiceImpl implements BasicService {
 		
 		int pNum = countPointSet();
 		String pNum16 = utilService.convertHex(pNum);
-		int res = mapper.insertPointSet(path);
+		int res = pointSetMapper.insertPointSet(path);
 		
 		return 1;
 	}
 	
 	@Override
 	public int countPlace() {
-		return mapper.countPlace();
+		return placeMapper.countPlace();
 	}
 	
 	@Override
 	public int countPointSet() {
-		return mapper.countPointSet();
+		return pointSetMapper.countPointSet();
 	}
 	
 	@Override
 	public int check() {
 		// TODO Need to Re-check
-		return mapper.check();
+		return basicMapper.check();
 	}
 }

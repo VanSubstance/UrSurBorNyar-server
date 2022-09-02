@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.ursurbornyar.mapper.BasicMapper;
+import com.my.ursurbornyar.mapper.PlaceMapper;
 import com.my.ursurbornyar.service.UtilService;
 import com.my.ursurbornyar.vo.Place;
 
 @Service
 public class UtilServiceImpl implements UtilService {
 	@Autowired
-	private BasicMapper mapper;
+	private PlaceMapper placeMapper;
 	
 	public String convertHex (int num) {
 		String pNum16 = Integer.toHexString(num);
@@ -22,7 +23,7 @@ public class UtilServiceImpl implements UtilService {
 	
 	public int checkDuplicatedPlace (Place place) {
 		
-		return mapper.checkDuplicatedPlace(place);
+		return placeMapper.checkDuplicatedPlace(place);
 	}
 	
 }

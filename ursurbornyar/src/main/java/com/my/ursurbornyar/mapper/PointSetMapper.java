@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import com.my.ursurbornyar.vo.Place;
 import com.my.ursurbornyar.vo.Path;
 
-public interface BasicMapper {
-	
-	public int check();
+public interface PointSetMapper {
+
+	public int insertPointSet(@Param("path") Path path);
+	public int countPointSet();
+
 }
