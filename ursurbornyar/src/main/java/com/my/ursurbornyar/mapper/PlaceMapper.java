@@ -9,7 +9,8 @@ import com.my.ursurbornyar.vo.Path;
 public interface PlaceMapper {
 
 	public int insertPlace(@Param("place") Place place);
-	public int countPlace();	
+	public int countPlace();
+	public String getPlaceID(@Param("place") Place place);
 	public int checkDuplicatedPlace(@Param("place") Place place);
 
 }

@@ -10,4 +10,28 @@
 			TRACK_PATH_TB
 	</select>
 	
+	<insert id = "insertTrackPath" parameterType = "com.my.ursurbornyar.vo.TrackPath">
+		INSERT INTO TRACK_PATH_TB (
+			ID,
+			SN,
+			TRACK_ID,
+			PATH_ID
+		)
+		VALUES (
+			#{trackpath.id},
+			#{trackpath.sn},
+			#{trackpath.track_id},
+			#{trackpath.path_id}
+		)
+		
+	</insert>
+	
+	<select id = "checkDuplicatedTrackPath" parameterType="com.my.ursurbornyar.vo.TrackPath" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			TRACK_PATH_TB
+		WHERE
+			 TRACK_ID = #{trackpath.track_id} AND PATH_ID = #{trackpath.path_id}
+	</select>
 </mapper>

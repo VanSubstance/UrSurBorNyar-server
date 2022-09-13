@@ -10,4 +10,19 @@
 			TRACK_TB
 	</select>
 	
+	<insert id = "insertTrack" parameterType = "com.my.ursurbornyar.vo.Track">
+		INSERT INTO TRACK_TB (
+			ID,
+			DISTANCE,
+			TIME,
+			POINT_SET_ID
+		)
+		VALUES (
+			#{track.id},
+			#{track.distance},
+			#{track.time},
+			#{track.point_set_id}
+		)
+	</insert>
+	
 </mapper>

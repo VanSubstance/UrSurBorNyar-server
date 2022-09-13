@@ -3,18 +3,41 @@
 
 <mapper namespace="com.my.ursurbornyar.mapper.PointSetMapper">
 	
-	<insert id = "insertPointSet" parameterType="com.my.ursurbornyar.vo.Path">
+	<insert id = "insertPointSet" parameterType="com.my.ursurbornyar.vo.PointSet">
 		INSERT INTO POINT_SET_TB (
 			ID,
 			START_POINT_ID,
 			END_POINT_ID
 		)
 		VALUES (
-			#{path.id},
-			#{path.start_point_id},
-			#{path.end_point_id}
+			#{pointset.id},
+			#{pointset.start_point_id},
+			#{pointset.end_point_id}
 		)
 	</insert>
+
+	<select id = "checkDuplicatedPointSet" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			POINT_SET_TB
+		WHERE
+			START_POINT_ID = #{pointset.start_point_id}
+		AND
+			END_POINT_ID = #{pointset.end_point_id}
+	</select>
+	
+	<select id = "getPointSetID" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "String">
+		SELECT
+			ID
+		FROM
+			POINT_SET_TB
+		WHERE
+			START_POINT_ID = #{pointset.start_point_id}
+		AND
+			END_POINT_ID = #{pointset.end_point_id}
+	</select>
+	
 	
 	<select id = "countPointSet" resultType = "Integer">
 		SELECT

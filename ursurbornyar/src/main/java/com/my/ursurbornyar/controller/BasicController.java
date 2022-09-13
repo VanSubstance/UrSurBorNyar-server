@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,6 @@ import com.my.ursurbornyar.service.BasicService;
 import com.my.ursurbornyar.service.UtilService;
 import com.my.ursurbornyar.vo.Path;
 import com.my.ursurbornyar.vo.Place;
-import com.my.ursurbornyar.vo.Response;
 
 @RestController
 @RequestMapping(value = "/basic")
@@ -32,31 +33,28 @@ public class BasicController {
 	private UtilService utilService;
 
 	@RequestMapping(value = "/twocoors", method = RequestMethod.POST)
-	public Response getTwoCoors(@RequestBody HashMap<String, ArrayList<Place>> req) {
+	public ResponseEntity<?> getTwoCoors(@RequestBody HashMap<String, ArrayList<Place>> req) {
 		System.out.println("바디:: " + req);
 		if (req != null) {
 			try {				
 				ArrayList<Place> placeList = req.get("placeList");
 				System.out.println(placeList.get(0).getCoordinate());
 				
-				Response res = new Response();
+				ResponseEntity<?> responseEntity = new ResponseEntity(placeList, HttpStatus.OK);
 								
-				int insertRes = basicService.insertPlace(placeList);
+				ArrayList<Place> insertRes = basicService.insertPlace(placeList);
 				
-				res.setData(placeList);
-				res.setMessage("Inserted place count : " + insertRes);
-				
-				return res;
+				return responseEntity;
 			} catch (ClassCastException e) {
 				System.out.println(e);
-				Response res = new Response(false);
-				res.setMessage("Invalid parameters.");
-				return res;
+				ResponseEntity<?> responseEntity  = new ResponseEntity("Invalid parameters.", HttpStatus.EXPECTATION_FAILED);
+				
+				return responseEntity;
 			}
 		} else {
-			Response res = new Response(false);
-			res.setMessage("Invalid parameters.");
-			return res;
+			ResponseEntity<?> responseEntity = new ResponseEntity("Invalid parameters.", HttpStatus.EXPECTATION_FAILED);
+			
+			return responseEntity;
 		}
 	}
 

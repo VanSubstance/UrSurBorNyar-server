@@ -22,6 +22,16 @@
 		)
 	</insert>
 	
+	<select id = "getPlaceID" parameterType="com.my.ursurbornyar.vo.Place" resultType = "String">
+		SELECT
+			ID
+		FROM
+			PLACE_TB
+		WHERE
+			WGS_X = #{place.coor.x}
+		AND
+			WGS_Y = #{place.coor.y}
+	</select>
 	
 	<select id = "checkDuplicatedPlace" parameterType="com.my.ursurbornyar.vo.Place" resultType = "Integer">
 		SELECT

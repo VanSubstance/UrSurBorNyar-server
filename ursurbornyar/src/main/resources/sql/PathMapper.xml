@@ -10,4 +10,29 @@
 			PATH_TB
 	</select>	
 	
+	<insert id = "insertPath" parameterType = "com.my.ursurbornyar.vo.Path">
+		INSERT INTO PATH_TB (
+			ID,
+			NAME,
+			START_PLACE_ID
+			END_PLACE_ID
+		)
+		VALUES (
+			#{path.id},
+			#{path.name},
+			#{path.start_place_id},
+			#{path.end_place_id}
+		)
+	</insert>
+	
+	<select id = "checkDuplicatedPath" parameterType="com.my.ursurbornyar.vo.Path" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PATH_TB
+		WHERE
+			 START_PLACE_ID = #{path.start_place_id} AND END_PLACE_ID = #{path.end_place_id}
+		OR
+			 NAME = #{path.name}
+	</select>
 </mapper>

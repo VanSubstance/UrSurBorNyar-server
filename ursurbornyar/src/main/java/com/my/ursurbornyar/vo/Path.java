@@ -1,5 +1,7 @@
 package com.my.ursurbornyar.vo;
 
+import java.util.HashMap;
+
 public class Path {
 	private String id;
 	private String name;
