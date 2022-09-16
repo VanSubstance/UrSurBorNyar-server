@@ -5,11 +5,11 @@ import java.util.HashMap;
 public class Path {
 	private String id;
 	private String name;
-	private String start_point_id;
-	private String end_point_id;
+	private String start_place_id;
+	private String end_place_id;
 	
 	public String toString() {
-		return "{\n" + "\tid : " + id + "\n" + "\tname : " + name + "\n" + "\tstart point id : " + start_point_id + "\tend point id" + end_point_id +"\n" + "}";
+		return "{\n" + "\tid : " + id + "\n" + "\tname : " + name + "\n" + "\tstart place id : " + start_place_id + "\tend place id" + end_place_id +"\n" + "}";
 	}
 
 	public String getId() {
@@ -27,21 +27,21 @@ public class Path {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getStartId() {
-		return start_point_id;
+
+	public String getStart_place_id() {
+		return start_place_id;
 	}
 
-	public void setStartId(String id) {
-		this.start_point_id = id;
+	public void setStart_place_id(String start_place_id) {
+		this.start_place_id = start_place_id;
 	}
-	
-	public String getEndId() {
-		return end_point_id;
+
+	public String getEnd_place_id() {
+		return end_place_id;
 	}
-	
-	public void setEndId(String id) {
-		this.end_point_id = id;
+
+	public void setEnd_place_id(String end_place_id) {
+		this.end_place_id = end_place_id;
 	}
 
 }

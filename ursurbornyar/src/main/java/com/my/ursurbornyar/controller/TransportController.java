@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.ursurbornyar.service.BasicService;
 import com.my.ursurbornyar.service.externalapi.TransportService;
 import com.my.ursurbornyar.vo.Coordinate;
+import com.my.ursurbornyar.vo.Path;
 import com.my.ursurbornyar.vo.Place;
 import com.my.ursurbornyar.vo.PointSet;
+import com.my.ursurbornyar.vo.Track;
+import com.my.ursurbornyar.vo.TrackPath;
 import com.my.ursurbornyar.vo.TransportRequest;
 
 @RestController
@@ -45,9 +48,8 @@ public class TransportController {
 		ArrayList<Place> insertRes = basicService.insertPlace(startEndPlaceList);
 		
 		// insert point_set_tb
-		String pointSetID = basicService.insertPointSet(startPlace, endPlace);
-		System.out.println("Inserted PointSet ID : " + pointSetID);
-		
+		PointSet pointSet = basicService.insertPointSet(startPlace, endPlace);
+		System.out.println("Insert PointSet : " + pointSet);
 		// get track data from external API
 		ResponseEntity<?> responseEntity = tranService.getPathInfoByBusList(new TransportRequest(startCoor, endCoor));
 		
@@ -71,13 +73,14 @@ public class TransportController {
 			int time = Integer.parseInt((String) ob1.get("time"));
 			int distance = Integer.parseInt((String) ob1.get("distance"));
 			
-			String trackID = basicService.insertTrack(time, distance, pointSetID);
+			Track track = basicService.insertTrack(time, distance, pointSet.getId());
 			System.out.println("time : " + time + " distance : " + distance);
+			
 			
 			// SN for trackpath
 			int SN = 0;
-			
 			for (Object p : path) {
+				
 				HashMap<String, Object> pathMap = (HashMap<String, Object>) p;
 				
 				System.out.println("Individual path");
@@ -87,10 +90,11 @@ public class TransportController {
 				
 				String fid = insertedPl.get(0).getId();
 				String tid = insertedPl.get(1).getId();
-				
-				String pathID = basicService.insertPath(pathMap, fid, tid);
-				String resTP = basicService.insertTrackPath(SN, trackID, pathID);
-				System.out.println(resTP);
+				System.out.println("fid : " + fid + " tid : " +tid);
+				Path returnPath = basicService.insertPath(pathMap, fid, tid);
+				TrackPath trackPath = basicService.insertTrackPath(SN, track.getId(), returnPath.getId());
+				SN++;
+				System.out.println(trackPath);
 			}
 			
 			//System.out.println(ob1.get("pathList"));

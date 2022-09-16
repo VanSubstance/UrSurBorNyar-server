@@ -5,15 +5,17 @@
 	
 	<insert id = "insertPointSet" parameterType="com.my.ursurbornyar.vo.PointSet">
 		INSERT INTO POINT_SET_TB (
-			ID,
 			START_POINT_ID,
 			END_POINT_ID
 		)
 		VALUES (
-			#{pointset.id},
 			#{pointset.start_point_id},
 			#{pointset.end_point_id}
 		)
+		
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
 	<select id = "checkDuplicatedPointSet" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "Integer">
@@ -27,7 +29,7 @@
 			END_POINT_ID = #{pointset.end_point_id}
 	</select>
 	
-	<select id = "getPointSetID" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "String">
+	<select id = "getPointSetID" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "Integer">
 		SELECT
 			ID
 		FROM

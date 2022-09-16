@@ -1,12 +1,12 @@
 package com.my.ursurbornyar.vo;
 
 public class Track {
-	private String id;
+	private int id;
 	private int distance;
 	private int time;
-	private String point_set_id;
+	private int point_set_id;
 	
-	public Track(String id, int distance, int time, String point_set_id) {
+	public Track(int id, int distance, int time, int point_set_id) {
 		this.id = id;
 		this.distance = distance;
 		this.time = time;
@@ -18,11 +18,11 @@ public class Track {
 		return "Track [id=" + id + ", distance=" + distance + ", time=" + time + ", point_set_id=" + point_set_id + "]";
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -42,11 +42,11 @@ public class Track {
 		this.time = time;
 	}
 
-	public String getPoint_set_id() {
+	public int getPoint_set_id() {
 		return point_set_id;
 	}
 
-	public void setPoint_set_id(String point_set_id) {
+	public void setPoint_set_id(int point_set_id) {
 		this.point_set_id = point_set_id;
 	}
 	

@@ -12,17 +12,32 @@
 	
 	<insert id = "insertTrack" parameterType = "com.my.ursurbornyar.vo.Track">
 		INSERT INTO TRACK_TB (
-			ID,
 			DISTANCE,
 			TIME,
 			POINT_SET_ID
 		)
 		VALUES (
-			#{track.id},
 			#{track.distance},
 			#{track.time},
 			#{track.point_set_id}
 		)
 	</insert>
 	
+	<select id = "checkDuplicatedTrack" parameterType="com.my.ursurbornyar.vo.Track" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			TRACK_TB
+		WHERE
+			 DISTANCE = #{track.distance} AND TIME = #{track.time} AND POINT_SET_ID = #{track.point_set_id}
+	</select>
+	
+	<select id = "getTrackID" parameterType = "com.my.ursurbornyar.vo.Track" resultType = "Integer">
+		SELECT
+			ID
+		FROM
+			TRACK_TB
+		WHERE
+			DISTANCE = #{track.distance} AND TIME = #{track.time} AND POINT_SET_ID = #{track.point_set_id}
+	</select>
 </mapper>

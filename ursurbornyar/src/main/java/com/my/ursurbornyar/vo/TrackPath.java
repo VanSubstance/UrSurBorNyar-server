@@ -1,9 +1,9 @@
 package com.my.ursurbornyar.vo;
 
 public class TrackPath {
-	private String id;
+	private int id;
 	private int sn;
-	private String track_id;
+	private int track_id;
 	private String path_id;
 	
 	@Override
@@ -11,10 +11,10 @@ public class TrackPath {
 		return "TrackPath [id=" + id + ", sn=" + sn + ", track_id=" + track_id + ", path_id=" + path_id + "]";
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public int getSn() {
@@ -23,10 +23,10 @@ public class TrackPath {
 	public void setSn(int sn) {
 		this.sn = sn;
 	}
-	public String getTrack_id() {
+	public int getTrack_id() {
 		return track_id;
 	}
-	public void setTrack_id(String track_id) {
+	public void setTrack_id(int track_id) {
 		this.track_id = track_id;
 	}
 	public String getPath_id() {

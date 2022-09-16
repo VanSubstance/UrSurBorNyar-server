@@ -1,31 +1,31 @@
 package com.my.ursurbornyar.vo;
 
 public class PointSet {
-	public PointSet(String id, String start_point_id, String end_point_id) {
+	public PointSet(int id, String start_point_id, String end_point_id) {
 		super();
-		this.id = id;
+		this.ID = id;
 		this.start_point_id = start_point_id;
 		this.end_point_id = end_point_id;
 	}
 
 
-	private String id;
+	private int ID;
 	private String start_point_id;
 	private String end_point_id;
 	
 	
 	@Override
 	public String toString() {
-		return "PointSet [id=" + id + ", start_point_id=" + start_point_id + ", end_point_id=" + end_point_id + "]";
+		return "PointSet [id=" + ID + ", start_point_id=" + start_point_id + ", end_point_id=" + end_point_id + "]";
 	}
 
-	public String getId() {
-		return id;
+	public int getId() {
+		return ID;
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(int id) {
+		this.ID = id;
 	}
 
 

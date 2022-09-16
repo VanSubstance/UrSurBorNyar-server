@@ -11,7 +11,7 @@ public interface PointSetMapper {
 
 	public int insertPointSet(@Param("pointset") PointSet pointset);
 	public int checkDuplicatedPointSet (@Param("pointset") PointSet pointset);
-	public String getPointSetID(@Param("pointset") PointSet pointset);
+	public int getPointSetID(@Param("pointset") PointSet pointset);
 	public int countPointSet();
 
 }

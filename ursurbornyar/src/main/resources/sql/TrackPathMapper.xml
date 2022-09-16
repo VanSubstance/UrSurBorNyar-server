@@ -12,13 +12,11 @@
 	
 	<insert id = "insertTrackPath" parameterType = "com.my.ursurbornyar.vo.TrackPath">
 		INSERT INTO TRACK_PATH_TB (
-			ID,
 			SN,
 			TRACK_ID,
 			PATH_ID
 		)
 		VALUES (
-			#{trackpath.id},
 			#{trackpath.sn},
 			#{trackpath.track_id},
 			#{trackpath.path_id}
@@ -33,5 +31,14 @@
 			TRACK_PATH_TB
 		WHERE
 			 TRACK_ID = #{trackpath.track_id} AND PATH_ID = #{trackpath.path_id}
+	</select>
+	
+	<select id = "getTrackPathID" parameterType = "com.my.ursurbornyar.vo.TrackPath" resultType = "Integer">
+		SELECT
+			ID
+		FROM
+			TRACK_PATH_TB
+		WHERE
+			TRACK_ID = #{trackpath.track_id} AND PATH_ID = #{trackpath.path_id} AND SN = #{trackpath.sn}
 	</select>
 </mapper>

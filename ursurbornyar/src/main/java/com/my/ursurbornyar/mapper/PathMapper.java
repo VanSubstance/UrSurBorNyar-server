@@ -10,6 +10,7 @@ public interface PathMapper {
 
 	public int insertPath(@Param("path") Path path);
 	public int countPath();
-	public int checkDuplicatedPlace(@Param("path") Path path);
+	public int checkDuplicatedPath(@Param("path") Path path);
+	public String getPathID(@Param("path") Path path);
 
 }

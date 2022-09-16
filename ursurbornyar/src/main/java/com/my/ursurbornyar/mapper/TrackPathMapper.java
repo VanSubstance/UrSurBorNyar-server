@@ -9,7 +9,8 @@ import com.my.ursurbornyar.vo.Path;
 
 public interface TrackPathMapper {
 
-	public int insertTrackPath(TrackPath trackPath);
+	public int insertTrackPath(@Param("trackpath") TrackPath trackPath);
 	public int countTrackPath();
-	public int checkDuplicatedTrackPath(TrackPath trackPath);
+	public int checkDuplicatedTrackPath(@Param("trackpath") TrackPath trackPath);
+	public int getTrackPathID(@Param("trackpath") TrackPath trackPath);
 }

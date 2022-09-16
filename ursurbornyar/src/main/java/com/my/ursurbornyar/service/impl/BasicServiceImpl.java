@@ -43,72 +43,71 @@ public class BasicServiceImpl implements BasicService {
 	@Override
 	public ArrayList<Place> insertPlace(ArrayList<Place> placeList) {
 		
-		int pNum = countPlace();
-		int res = 0;
-		System.out.println(pNum);
-		
-		for(Place place : placeList) {
-			place.setId(utilService.convertHex(pNum));
-			pNum += 1;
-		}
-		
 		System.out.println("start insert placeList");
 		System.out.println(placeList);
 		
 		for (Place place : placeList) {
+			// set place id
+			int pNum = countPlace();
+			place.setId(utilService.convertHex(pNum));
+			
 			if (utilService.checkDuplicatedPlace(place) > 0) {
-				System.out.println("Already stored place.");
+				// set duplicated id
+				String placeID = placeMapper.getPlaceID(place);
+				place.setId(placeID);
+				System.out.println("Already stored place : " + place);
 			}
 			else {
-				res += placeMapper.insertPlace(place);
+				placeMapper.insertPlace(place);
 			}
 		}
 		System.out.println("end insert placeList");
 		
+		System.out.println(placeList);
 		return placeList;
 	}
 	
 	@Override
-	public String insertPointSet(Place start, Place end) {
+	public PointSet insertPointSet(Place start, Place end) {
 		
-		int pNum = countPointSet();
-		String pNum16 = utilService.convertHex(pNum);
+		System.out.println("start insert point set");
+		
 		String startID = placeMapper.getPlaceID(start);
 		String endID = placeMapper.getPlaceID(end);
 		
-		PointSet pointSet = new PointSet(pNum16,startID, endID);
+		PointSet pointSet = new PointSet(0,startID, endID);
+		System.out.println("Point Set : " + pointSet);
+		
 		if(pointSetMapper.checkDuplicatedPointSet(pointSet) == 0) {
 			int res = pointSetMapper.insertPointSet(pointSet);
-			System.out.println("Inserted PointSet : " + res);
-			
-			return pNum16;
+			int pointSetID = pointSetMapper.getPointSetID(pointSet);
+			pointSet.setId(pointSetID);
+			System.out.println("Inserted PointSet : " + pointSet);
 		}
 		else {
 			System.out.println("Already inserted Point Set");
-			return null;	
+			int pointSetID = pointSetMapper.getPointSetID(pointSet);
+			pointSet.setId(pointSetID);
 		}
+		return pointSet;
 	}
 	
 	@Override
-	public String insertTrack(int time, int distance, String point_set_id) {
+	public Track insertTrack(int time, int distance, int point_set_id) {
 		
-		int pNum = trackMapper.countTrack();
-		String pNum16 = utilService.convertHex(pNum);
-		
-		Track track = new Track(pNum16, time, distance, point_set_id);
+		Track track = new Track(0, time, distance, point_set_id);
 		System.out.println("track");
 		System.out.println(track);
-		int res = trackMapper.insertTrack(track);
+		if (trackMapper.checkDuplicatedTrack(track) == 0) {
+			int res = trackMapper.insertTrack(track);
+		}
+		int trackID = trackMapper.getTrackID(track);
+		track.setId(trackID);
 		
-		if (res == 1) {
-			return pNum16;
-		}
-		else {
-			return null;
-		}
+		return track;
 	}
 	@Override
-	public String insertPath(HashMap<String, Object> item, String fid, String tid) {
+	public Path insertPath(HashMap<String, Object> item, String fid, String tid) {
 		
 		Path path = new Path();
 		int pNum = pathMapper.countPath();
@@ -116,32 +115,38 @@ public class BasicServiceImpl implements BasicService {
 		
 		path.setId(pNum16);
 		path.setName((String) item.get("routeNm"));
-		path.setStartId(fid);
-		path.setEndId(tid);
+		path.setStart_place_id(fid);
+		path.setEnd_place_id(tid);
 		
-		if (pathMapper.checkDuplicatedPlace(path) == 0) {
+		System.out.println("path : " + path);
+		if (pathMapper.checkDuplicatedPath(path) == 0) {
+			System.out.println("insert path");
 			pathMapper.insertPath(path);
 		}
+		else {
+			String pathID = pathMapper.getPathID(path);
+			path.setId(pathID);
+		}
 		
-		return pNum16;
+		return path;
 	}
 
-	public String insertTrackPath(int SN, String trackID, String pathID) {
-		
-		int pNum = trackPathMapper.countTrackPath();
-		String pNum16 = utilService.convertHex(pNum);
+	public TrackPath insertTrackPath(int SN, int trackID, String pathID) {
 		
 		TrackPath trackPath = new TrackPath();
-		trackPath.setId(pNum16);
 		trackPath.setSn(SN);
 		trackPath.setTrack_id(trackID);
 		trackPath.setPath_id(pathID);
 		
+		System.out.println("trackPath : " + trackPath);
 		if(trackPathMapper.checkDuplicatedTrackPath(trackPath) == 0) {
+			System.out.println("insert trackPath");
 			trackPathMapper.insertTrackPath(trackPath);
+			int trackPathID = trackPathMapper.getTrackPathID(trackPath);
+			trackPath.setId(trackPathID);
 		}
 		
-		return pNum16;
+		return trackPath;
 	}
 	
 	public ArrayList<Place> insertPlaceByPath (HashMap<String, Object> path){
@@ -152,8 +157,8 @@ public class BasicServiceImpl implements BasicService {
 		Place fp = new Place();
 		Place tp = new Place();
 		
-		Coordinate fcoor = new Coordinate((double) path.get("fx"),(double) path.get("fy"));
-		Coordinate tcoor = new Coordinate((double) path.get("tx"),(double) path.get("ty"));
+		Coordinate fcoor = new Coordinate(Double.parseDouble(path.get("fx").toString()),Double.parseDouble(path.get("fy").toString()));
+		Coordinate tcoor = new Coordinate(Double.parseDouble(path.get("tx").toString()),Double.parseDouble(path.get("ty").toString()));
 		
 		fp.setName((String) path.get("fname"));
 		fp.setCoordinate(fcoor);
