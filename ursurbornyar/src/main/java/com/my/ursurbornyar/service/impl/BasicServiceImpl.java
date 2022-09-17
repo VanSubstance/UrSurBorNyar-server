@@ -44,7 +44,7 @@ public class BasicServiceImpl implements BasicService {
 	public ArrayList<Place> insertPlace(ArrayList<Place> placeList) {
 		
 		System.out.println("start insert placeList");
-		System.out.println(placeList);
+		//System.out.println(placeList);
 		
 		for (Place place : placeList) {
 			// set place id
@@ -55,7 +55,7 @@ public class BasicServiceImpl implements BasicService {
 				// set duplicated id
 				String placeID = placeMapper.getPlaceID(place);
 				place.setId(placeID);
-				System.out.println("Already stored place : " + place);
+				//System.out.println("Already stored place : " + place);
 			}
 			else {
 				placeMapper.insertPlace(place);
@@ -63,7 +63,7 @@ public class BasicServiceImpl implements BasicService {
 		}
 		System.out.println("end insert placeList");
 		
-		System.out.println(placeList);
+		//System.out.println(placeList);
 		return placeList;
 	}
 	
@@ -76,13 +76,13 @@ public class BasicServiceImpl implements BasicService {
 		String endID = placeMapper.getPlaceID(end);
 		
 		PointSet pointSet = new PointSet(0,startID, endID);
-		System.out.println("Point Set : " + pointSet);
+		//System.out.println("Point Set : " + pointSet);
 		
 		if(pointSetMapper.checkDuplicatedPointSet(pointSet) == 0) {
 			int res = pointSetMapper.insertPointSet(pointSet);
 			int pointSetID = pointSetMapper.getPointSetID(pointSet);
 			pointSet.setId(pointSetID);
-			System.out.println("Inserted PointSet : " + pointSet);
+			//System.out.println("Inserted PointSet : " + pointSet);
 		}
 		else {
 			System.out.println("Already inserted Point Set");
@@ -96,8 +96,8 @@ public class BasicServiceImpl implements BasicService {
 	public Track insertTrack(int time, int distance, int point_set_id) {
 		
 		Track track = new Track(0, time, distance, point_set_id);
-		System.out.println("track");
-		System.out.println(track);
+		//System.out.println("track");
+		//System.out.println(track);
 		if (trackMapper.checkDuplicatedTrack(track) == 0) {
 			int res = trackMapper.insertTrack(track);
 		}
@@ -118,9 +118,9 @@ public class BasicServiceImpl implements BasicService {
 		path.setStart_place_id(fid);
 		path.setEnd_place_id(tid);
 		
-		System.out.println("path : " + path);
+		//System.out.println("path : " + path);
 		if (pathMapper.checkDuplicatedPath(path) == 0) {
-			System.out.println("insert path");
+			//System.out.println("insert path");
 			pathMapper.insertPath(path);
 		}
 		else {
@@ -138,9 +138,9 @@ public class BasicServiceImpl implements BasicService {
 		trackPath.setTrack_id(trackID);
 		trackPath.setPath_id(pathID);
 		
-		System.out.println("trackPath : " + trackPath);
+		//System.out.println("trackPath : " + trackPath);
 		if(trackPathMapper.checkDuplicatedTrackPath(trackPath) == 0) {
-			System.out.println("insert trackPath");
+			//System.out.println("insert trackPath");
 			trackPathMapper.insertTrackPath(trackPath);
 			int trackPathID = trackPathMapper.getTrackPathID(trackPath);
 			trackPath.setId(trackPathID);

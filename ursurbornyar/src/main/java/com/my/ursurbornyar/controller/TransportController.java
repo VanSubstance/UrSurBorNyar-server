@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class TransportController {
 	@RequestMapping(value = "/bus", method = RequestMethod.PATCH)
 	public ResponseEntity<?> onlyBus(@RequestBody HashMap<String, Place> body) {
 		// System.out.println(body);
+		LinkedHashMap<String, Object> responseHashMap = new LinkedHashMap<String, Object>();
 		
 		// get start, end place data
 		Place startPlace = body.get("startPlace");
@@ -47,26 +49,32 @@ public class TransportController {
 		startEndPlaceList.add(endPlace);
 		ArrayList<Place> insertRes = basicService.insertPlace(startEndPlaceList);
 		
+		// insert startPlace, endPlace in reponseHashMap
+		responseHashMap.put("startPlace", startPlace);
+		responseHashMap.put("endPlace", endPlace);
+		
 		// insert point_set_tb
 		PointSet pointSet = basicService.insertPointSet(startPlace, endPlace);
-		System.out.println("Insert PointSet : " + pointSet);
+		// System.out.println("Insert PointSet : " + pointSet);
 		// get track data from external API
 		ResponseEntity<?> responseEntity = tranService.getPathInfoByBusList(new TransportRequest(startCoor, endCoor));
 		
 		System.out.println("getBody");
-		System.out.println(responseEntity.getBody());
+		//System.out.println(responseEntity.getBody());
 		
 		// parse data by using bidirectional casting between LinkedHashMap and ArrayList
 		LinkedHashMap<String, Object> obj = (LinkedHashMap<String, Object>) responseEntity.getBody();
 		ArrayList<Object> itemList = (ArrayList<Object>) obj.get("itemList");
 		
 		System.out.println("itemList");
-		System.out.println(itemList);
+		// System.out.println(itemList);
+		// insert route in reponseHashMap
+		responseHashMap.put("route", itemList.get(0));
 		
 		// insert track
 		for (Object item : itemList) {
 			
-			System.out.println(item);
+			// System.out.println(item);
 			
 			LinkedHashMap<String, Object> ob1 = (LinkedHashMap<String, Object>) item;
 			ArrayList<Object> path = (ArrayList<Object>) ob1.get("pathList");
@@ -83,24 +91,25 @@ public class TransportController {
 				
 				HashMap<String, Object> pathMap = (HashMap<String, Object>) p;
 				
-				System.out.println("Individual path");
-				System.out.println(p);
+				//System.out.println("Individual path");
+				//System.out.println(p);
 				
 				ArrayList<Place> insertedPl = basicService.insertPlaceByPath(pathMap);
 				
 				String fid = insertedPl.get(0).getId();
 				String tid = insertedPl.get(1).getId();
-				System.out.println("fid : " + fid + " tid : " +tid);
+				//System.out.println("fid : " + fid + " tid : " +tid);
 				Path returnPath = basicService.insertPath(pathMap, fid, tid);
 				TrackPath trackPath = basicService.insertTrackPath(SN, track.getId(), returnPath.getId());
 				SN++;
-				System.out.println(trackPath);
+				//System.out.println(trackPath);
 			}
 			
 			//System.out.println(ob1.get("pathList"));
 		}
 		
-		return responseEntity;
+		ResponseEntity<?> successMessage = new ResponseEntity<>(responseHashMap, HttpStatus.OK);
+		return successMessage;
 	}
 
 	@RequestMapping(value = "/sub", method = RequestMethod.PATCH)
