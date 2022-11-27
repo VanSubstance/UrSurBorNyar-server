@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.ursurbornyar.mapper.TrackPathMapper">
+			
+	<select id = "countTrackPath" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			TRACK_PATH_TB
+	</select>
+	
+	<insert id = "insertTrackPath" parameterType = "com.my.ursurbornyar.vo.TrackPath">
+		INSERT INTO TRACK_PATH_TB (
+			SN,
+			TRACK_ID,
+			PATH_ID
+		)
+		VALUES (
+			#{trackpath.sn},
+			#{trackpath.track_id},
+			#{trackpath.path_id}
+		)
+		
+	</insert>
+	
+	<select id = "checkDuplicatedTrackPath" parameterType="com.my.ursurbornyar.vo.TrackPath" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			TRACK_PATH_TB
+		WHERE
+			 TRACK_ID = #{trackpath.track_id} AND PATH_ID = #{trackpath.path_id}
+	</select>
+	
+	<select id = "getTrackPathID" parameterType = "com.my.ursurbornyar.vo.TrackPath" resultType = "Integer">
+		SELECT
+			ID
+		FROM
+			TRACK_PATH_TB
+		WHERE
+			TRACK_ID = #{trackpath.track_id} AND PATH_ID = #{trackpath.path_id} AND SN = #{trackpath.sn}
+	</select>
+</mapper>

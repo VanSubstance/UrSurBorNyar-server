@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.ursurbornyar.mapper.PointSetMapper">
+	
+	<insert id = "insertPointSet" parameterType="com.my.ursurbornyar.vo.PointSet">
+		INSERT INTO POINT_SET_TB (
+			START_POINT_ID,
+			END_POINT_ID
+		)
+		VALUES (
+			#{pointset.start_point_id},
+			#{pointset.end_point_id}
+		)
+		
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<select id = "checkDuplicatedPointSet" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			POINT_SET_TB
+		WHERE
+			START_POINT_ID = #{pointset.start_point_id}
+		AND
+			END_POINT_ID = #{pointset.end_point_id}
+	</select>
+	
+	<select id = "getPointSetID" parameterType = "com.my.ursurbornyar.vo.PointSet" resultType = "Integer">
+		SELECT
+			ID
+		FROM
+			POINT_SET_TB
+		WHERE
+			START_POINT_ID = #{pointset.start_point_id}
+		AND
+			END_POINT_ID = #{pointset.end_point_id}
+	</select>
+	
+	
+	<select id = "countPointSet" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			POINT_SET_TB
+	</select>
+		
+	
+</mapper>

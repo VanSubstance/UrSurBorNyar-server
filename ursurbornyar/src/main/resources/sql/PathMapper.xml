@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.ursurbornyar.mapper.PathMapper">
+	
+	<select id = "countPath" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM 
+			PATH_TB
+	</select>	
+	
+	<insert id = "insertPath" parameterType = "com.my.ursurbornyar.vo.Path">
+		INSERT INTO PATH_TB (
+			ID,
+			NAME,
+			START_PLACE_ID,
+			END_PLACE_ID
+		)
+		VALUES (
+			#{path.id},
+			#{path.name},
+			#{path.start_place_id},
+			#{path.end_place_id}
+		)
+	</insert>
+	
+	<select id = "checkDuplicatedPath" parameterType="com.my.ursurbornyar.vo.Path" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PATH_TB
+		WHERE
+			 START_PLACE_ID = #{path.start_place_id} 
+		AND 
+			 END_PLACE_ID = #{path.end_place_id}
+		AND
+			 NAME = #{path.name}
+	</select>
+	
+	<select id = "getPathID" parameterType = "com.my.ursurbornyar.vo.Path" resultType = "String">
+		SELECT
+			ID
+		FROM
+			PATH_TB
+		WHERE
+			NAME = #{path.name} 
+		AND
+			START_PLACE_ID = #{path.start_place_id}
+		AND
+			END_PLACE_ID = #{path.end_place_id} 
+	</select>
+</mapper>

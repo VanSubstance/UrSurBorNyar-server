@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.ursurbornyar.mapper.PlaceMapper">
+	
+	<insert id = "insertPlace" parameterType="com.my.ursurbornyar.vo.Place">
+		INSERT INTO PLACE_TB (
+			ID,
+			NAME,
+			WGS_X,
+			WGS_Y,
+			GRS_X,
+			GRS_Y
+		)
+		VALUES (
+			#{place.id},
+			#{place.name},
+			#{place.coor.x},
+			#{place.coor.y},
+			null,
+			null
+		)
+	</insert>
+	
+	<select id = "getPlaceID" parameterType="com.my.ursurbornyar.vo.Place" resultType = "String">
+		SELECT
+			ID
+		FROM
+			PLACE_TB
+		WHERE
+			WGS_X = #{place.coor.x} AND WGS_Y = #{place.coor.y}
+		OR
+			NAME = #{place.name}
+	</select>
+	
+	<select id = "checkDuplicatedPlace" parameterType="com.my.ursurbornyar.vo.Place" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PLACE_TB
+		WHERE
+			 WGS_X = #{place.coor.x} AND WGS_Y = #{place.coor.y}
+		OR
+			 NAME = #{place.name}
+	</select>
+	
+	<select id = "countPlace" resultType = "Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			PLACE_TB
+	</select>
+	
+</mapper>
